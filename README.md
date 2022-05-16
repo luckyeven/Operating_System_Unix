@@ -1,36 +1,11 @@
 # Operating_System_Unix
 6.828/ MIT PDOS courese. Study Unix-like functions; Build a JOS operating system.
 -------------
-## Lecture 1 Notes
-#### Goal: 
- * To dunderstand and design the high-level operating system.
- * Ganin Hands on experinces by doing the lab
-#### Purposes of the O/S
- * Abstract hardwares.
- * Multiplex the hardware among many of applications.
- * Isolation
- * Sharing
- * Security
- * Performance
- * Range of uses
-----
- #### O/S organization
- 
-|Vl, CC, SH,    |USER MODE|
-|---|---|
-| File System,Process,Memory allocation, Access Control |KERNEL MODE|   
+* Lecture
+    * [Lecture01](https://github.com/luckyeven/Operating_System_Unix/blob/main/Lecture1/README.md#L30)
 
-CPU RAM DISK NET  
-
------
-API <-> kernel (System function call)  
-Example:
-```C++
-    fd = open("out",1) // a function call
-    write(fd,"hello\n",6) // write to a file
-    pid = fork(); // fork returns the id
-```
- ----
+* Lab
+    * [Lab01](https://github.com/luckyeven/Operating_System_Unix/blob/main/lab1/README.md#L5)
 
 
 
