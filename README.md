@@ -4,6 +4,8 @@
 * Lecture Notes
     * [Lecture 1. Introductions](https://github.com/luckyeven/Operating_System_Unix/blob/main/Lecture1/README.md#L30)
 
+    * [Lecture 2.]
+
 * Lab
     * [Lab01](https://github.com/luckyeven/Operating_System_Unix/blob/main/lab1/README.md#L5)
 
