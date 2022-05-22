@@ -1,5 +1,6 @@
 ## Lecture 1 Notes
-Data: May,21 2022
+Data: May,21 2022 
+
 #### Goal: 
  * To understand and design the high-level operating system.
  
@@ -42,7 +43,7 @@ Example:
 * The call `write(fd,buf,n)` writes `n` bytes from `buf` to the file descriptor `fd` and returns the number of bytes written.
     * Like `read`, the `write` writes data at the current file offset and then advances that offset by the number of bytes written: each `write ` picks up where the previous one left off.
 
-# Example code form program `cat`
+# Example code from program `cat`
 Copy data from its standard input to its standard output. If an error occurs, writes a message to the standard error.
 
 ```C
