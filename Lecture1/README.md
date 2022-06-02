@@ -13,7 +13,8 @@ Data: May,21 2022
  * Performance
  * Range of uses
 ----
- #### O/S organization
+
+#### O/S organization
  
 |Vl, CC, SH,    |USER MODE|
 |---|---|
@@ -29,10 +30,34 @@ Example:
     write(fd,"hello\n",6) // write to a file
     pid = fork(); // fork returns the id
 ```
+
+# Processes and memory
+
+Process may create a new process using the `fork` system call. `fork` gives the new process exactly the same memory contents(instructions and data) as the calling process. `fork` returns in both the *parent* and *child*. In the child,`fork` returns zero, in the parent process,`fork` returns the child process's PID.  
+
+Example:
+```c
+int pid = fork(); // Create a process, return child's PID
+
+if(pid > 0){
+    printf("parent: child=%d\n", pid);
+    pid = wait((int *) 0);
+    printf("child %d is done\n", pid);
+} else if(pid == 0){
+    printf("child: exiting\n");
+    exit(0);
+} else {
+    printf("fork error\n");
+}
+
+```
+The `exit` system call causes the calling process to stop executing and to release resources such as memory and open files. Exit takes an integer status argument, conventionally 0 to indicate success and 1 to indicate failure.   
+The `wait` system call returns the PID of an exited or killed child of the current process and copies the exit status of the child to the address passed to wait; if none of the caller's children has exited, `wait` waits for one to do so. If the caller has no children, `wait` immediately returns -1. If the parent doesn't care about the exit status of a child, it can pass a 0 address to `wait`.
+
  ----
 
  # I/O and File descriptors
- * A file descriptor is a small non negative integer representing a kernel managed object that a process may read from or writ to.
+ * A file descriptor is a small non negative integer representing a kernel managed object that a process may read from or write to.
  * Internally, the xv6 kernel uses file descriptor as an index into a preprocessed table.
     * Every process has a private space of file descriptors starting at zero.
     * A process reads from file descriptor 0(Standard input), writes output to file descriptor 1(Standard output), Writes error messages to file descriptor 2(Standard error). 
@@ -43,7 +68,7 @@ Example:
 * The call `write(fd,buf,n)` writes `n` bytes from `buf` to the file descriptor `fd` and returns the number of bytes written.
     * Like `read`, the `write` writes data at the current file offset and then advances that offset by the number of bytes written: each `write ` picks up where the previous one left off.
 
-# Example code from program `cat`
+## Example code from program `cat`
 Copy data from its standard input to its standard output. If an error occurs, writes a message to the standard error.
 
 ```C
@@ -55,11 +80,11 @@ for(;;){
     if(n == 0)
         break;
     if(n < 0){
-        fprintf(2, "read error\n");
+        printf(2, "read error\n");
         exit(1);
     }
     if(write(1, buf, n) != n){
-        fprintf(2, "write error\n");
+        printf(2, "write error\n");
         exit(1);
     }
 }
@@ -88,9 +113,11 @@ if(fork() == 0){
     close(0);
     open("input.txt", O_RDONLY);
     exec("cat", argv);
-}
+} 
 ```  
+
 Note: `fork` copies the file descriptor table, each underlying file offset is shared between parent and child.
+
 ------
 
 Write `hello world` into a file: 
